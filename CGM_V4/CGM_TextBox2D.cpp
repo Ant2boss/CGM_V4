@@ -41,8 +41,41 @@ void CGM::TextBox::ClearBuffer() {
 
 void CGM::TextBox::AppendToCanvas(CGM::Canvas2D* Can) {
 	CGM::Vec2i Offset = this->GetPosition();
-	if (this->TextBreakMode) {
-		std::string OutputText = this->convert_TextBuffer_to_string();
+	std::string OutputText = this->convert_TextBuffer_to_string();
+
+	if (this->CenterTDMode) {
+		int char_count = 0;	//Number of characters
+		int len_count = 0;	//Lenght of a single line up to a point
+
+		for (int i = 0; i < OutputText.length(); ++i) {
+			//If anything other thane \n is encounterd increase char_count by 1
+			if (OutputText[i] != '\n') {
+				++char_count;
+
+				++len_count;
+
+				if (len_count >= this->GetSize().x)
+					len_count = 0;
+			}
+			//Othewise increase it by the amount of remaining lenght
+			else {
+				char_count += this->GetSize().x - len_count;
+				len_count = 0;
+			}
+		}
+
+		int aprox_line_count = std::round(char_count / this->GetSize().x);
+
+		int empty_line_count = this->GetSize().y - aprox_line_count;
+
+		Offset.y += empty_line_count / 2;
+
+		if (Offset.y < this->GetPosition().y) {
+			Offset.y = this->GetPosition().y;
+		}
+	}
+
+	if (this->TextBreakMode) {		
 		uint32_t curr_index = 0;
 
 		CGM::Vec2i tOff;
@@ -145,4 +178,34 @@ std::string CGM::TextBox::convert_TextBuffer_to_string() const {
 	}
 
 	return ss.str();
+}
+
+void CGM::SaveTextBoxToFile(std::ofstream& out_file, const TextBox* text_to_save) {
+	CGM::SaveEntity2DToFile(out_file, text_to_save);
+
+	out_file.write((char*)&text_to_save->TextBreakMode, sizeof(bool));
+	out_file.write((char*)&text_to_save->CenterTDMode, sizeof(bool));
+
+	uint32_t el_count = text_to_save->GetBufferSize();
+	out_file.write((char*)&el_count, sizeof(uint32_t));
+	out_file.write((char*)&text_to_save->MyTextBuffer[0], el_count * sizeof(CGM::TextBox::text_element));
+}
+
+void CGM::LoadTextBoxFromFile(std::ifstream& in_file, TextBox* text_to_load) {
+	CGM::LoadEntity2DFromFile(in_file, text_to_load);
+
+	in_file.read((char*)&text_to_load->TextBreakMode, sizeof(bool));
+	in_file.read((char*)&text_to_load->CenterTDMode, sizeof(bool));
+
+	uint32_t el_count;
+	in_file.read((char*)&el_count, sizeof(uint32_t));
+	CGM::TextBox::text_element* tel_array = new CGM::TextBox::text_element[el_count];
+
+	in_file.read((char*)tel_array, sizeof(CGM::TextBox::text_element) * el_count);
+
+	text_to_load->MyTextBuffer.resize(el_count);
+	memcpy(&text_to_load->MyTextBuffer[0], tel_array, sizeof(CGM::TextBox::text_element) * el_count);
+
+	delete[] tel_array;
+
 }

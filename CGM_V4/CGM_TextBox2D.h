@@ -34,6 +34,9 @@ namespace CGM {
 		char GetBufferCharAt(uint32_t index) const;
 		uint8_t GetBufferColorAt(uint32_t index) const;
 
+		friend void SaveTextBoxToFile(std::ofstream&, const TextBox*);
+		friend void LoadTextBoxFromFile(std::ifstream&, TextBox*);
+
 	private:
 		struct text_element {
 			char Letter = ' ';
@@ -49,6 +52,10 @@ namespace CGM {
 		bool CenterTDMode = false;
 
 	};
+
+	void SaveTextBoxToFile(std::ofstream& out_file, const TextBox* text_to_save);
+
+	void LoadTextBoxFromFile(std::ifstream& in_file, TextBox* text_to_load);
 
 	template<typename T>
 	TextBox& operator<<(CGM::TextBox& tb, const T ElementToAdd) {
