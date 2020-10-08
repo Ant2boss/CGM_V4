@@ -47,5 +47,8 @@
     <ClInclude Include="CGM_TextBox2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CGM_Button2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

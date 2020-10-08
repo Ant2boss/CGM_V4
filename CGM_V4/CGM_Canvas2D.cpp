@@ -112,7 +112,7 @@ CGM::Reg2i CGM::Canvas2D::GetRegion() const {
     return CGM::Reg2i(CGM::Vec2i(0, 0), this->GetSize());
 }
 
-CGM::Vec2i CGM::Canvas2D::GetMousePos() const {
+CGM::Vec2i CGM::Canvas2D::GetMousePos() {
     POINT p;
     
     GetCursorPos(&p);

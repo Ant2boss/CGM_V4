@@ -40,7 +40,7 @@ namespace CGM {
 		CGM::Vec2i GetSize() const;
 		CGM::Reg2i GetRegion() const;
 
-		CGM::Vec2i GetMousePos() const;
+		static CGM::Vec2i GetMousePos();
 
 		void AppendLine(uint8_t Color, CGM::Vec2i Start, CGM::Vec2i End);
 		void AppendLine(uint8_t Color, int xStart, int yStart, int xEnd, int yEnd);

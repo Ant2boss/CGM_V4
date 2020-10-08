@@ -4,50 +4,35 @@
 #include "CGM_Canvas2D.h"
 
 #include "CGM_Shapes2D.h"
-
 #include "CGM_TextBox2D.h"
+#include "CGM_Button2D.h"
 
 using namespace std;
 
 int main() {
 
 	CGM::Canvas2D MyCan(128, 48);
-	
-	CGM::TextBox MyText(CGM::Vec2i(24, 5));
-	CGM::RectangleShape MyRect(CGM::Canvas2D::Color::Gray);
+	CGM::Butt2_Rect MyButton;
 
-	MyText.SetFontColor(CGM::Canvas2D::Color::White);
-	MyText.SetFormatMode_TextBreak(false);
-	MyText.SetFormatMode_CenterTopDown(true);
-	
-	MyText << "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam id voluptate doloremque vitae voluptatibus quae eaque corrupti, architecto veniam rerum reprehenderit quis quo doloribus libero impedit laboriosam fugit deleniti itaque.";
+	MyButton.SetPosition(10, 5);
+	MyButton.SetSize(31, 11);
 
-	MyText.SetPosition(10, 5);
+	MyButton.SetColorHovered(CGM::Canvas2D::Color::Blue);
+	MyButton.SetColorNotHovered(CGM::Canvas2D::Color::DarkBlue);
 
-	CGM::TextBox TextLoadingExample;
-	std::ifstream in("TestText.bin", ios_base::binary);
-	if (!in) {
-		cerr << "Error opeing file!";
-		return -1;
-	}
+	//MyButton.SetTextFormatMode_TextBreak(false);
 
-	CGM::LoadTextBoxFromFile(in, &TextLoadingExample);
+	MyButton.AddTextToButton("Hello world! ");
+	MyButton.AddTextToButton("And now I add even more text to see wether the stuff I added actually works!");
 
-	in.close();
-	
 	while (1) {
+		
 		MyCan.Clear();
 
-		//MyText.SetSize(MyCan.GetMousePos() - MyText.GetPosition() + CGM::Vec2i(1, 1));
-
-		MyRect.SetPosition(TextLoadingExample.GetPosition());
-		MyRect.SetSize(TextLoadingExample.GetSize());
-
-		MyCan.Append(&MyRect);
-		MyCan.Append(&TextLoadingExample);
-
-		if (MyRect.GetRegion().is_over_a_vector(MyCan.GetMousePos()) && GetKeyState(VK_LBUTTON) < 0)
+		if (MyButton.is_left_clicked())
 			break;
+
+		MyCan.Append(&MyButton);
 
 		MyCan.Draw();
 
