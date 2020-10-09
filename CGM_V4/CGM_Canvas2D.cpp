@@ -29,25 +29,25 @@ CGM::Canvas2D::Canvas2D(size_t x, size_t y) {
 
     this->MyCSBI.bFullscreenSupported = false;
 
-    this->MyCSBI.ColorTable[CGM::Canvas2D::Color::Black]        = RGB(0, 0, 0);
-    this->MyCSBI.ColorTable[CGM::Canvas2D::Color::Gray]         = RGB(128, 128, 128);
-    this->MyCSBI.ColorTable[CGM::Canvas2D::Color::White]        = RGB(255, 255, 255);
-    this->MyCSBI.ColorTable[CGM::Canvas2D::Color::Red]          = RGB(255, 0, 0);
-    this->MyCSBI.ColorTable[CGM::Canvas2D::Color::DarkRed]      = RGB(128, 0, 0);
-    this->MyCSBI.ColorTable[CGM::Canvas2D::Color::Cyan]         = RGB(0, 255, 255);
-    this->MyCSBI.ColorTable[CGM::Canvas2D::Color::Blue]         = RGB(0, 0, 255);
-    this->MyCSBI.ColorTable[CGM::Canvas2D::Color::DarkBlue]     = RGB(0, 0, 128);
-    this->MyCSBI.ColorTable[CGM::Canvas2D::Color::Green]        = RGB(0, 255, 0);
-    this->MyCSBI.ColorTable[CGM::Canvas2D::Color::DarkGreen]    = RGB(0, 128, 0);
-    this->MyCSBI.ColorTable[CGM::Canvas2D::Color::Magenta]      = RGB(255, 0, 255);
-    this->MyCSBI.ColorTable[CGM::Canvas2D::Color::Indigo]       = RGB(75, 0, 130);
-    this->MyCSBI.ColorTable[CGM::Canvas2D::Color::Brown]        = RGB(160, 82, 45);
-    this->MyCSBI.ColorTable[CGM::Canvas2D::Color::Bisque]       = RGB(255, 228, 196);
-    this->MyCSBI.ColorTable[CGM::Canvas2D::Color::Yellow]       = RGB(255, 255, 0);
-    this->MyCSBI.ColorTable[CGM::Canvas2D::Color::Orange]       = RGB(255, 165, 0);
+    this->MyCSBI.ColorTable[CGM::Color::Black]        = RGB(0, 0, 0);
+    this->MyCSBI.ColorTable[CGM::Color::Gray]         = RGB(128, 128, 128);
+    this->MyCSBI.ColorTable[CGM::Color::White]        = RGB(255, 255, 255);
+    this->MyCSBI.ColorTable[CGM::Color::Red]          = RGB(255, 0, 0);
+    this->MyCSBI.ColorTable[CGM::Color::DarkRed]      = RGB(128, 0, 0);
+    this->MyCSBI.ColorTable[CGM::Color::Cyan]         = RGB(0, 255, 255);
+    this->MyCSBI.ColorTable[CGM::Color::Blue]         = RGB(0, 0, 255);
+    this->MyCSBI.ColorTable[CGM::Color::DarkBlue]     = RGB(0, 0, 128);
+    this->MyCSBI.ColorTable[CGM::Color::Green]        = RGB(0, 255, 0);
+    this->MyCSBI.ColorTable[CGM::Color::DarkGreen]    = RGB(0, 128, 0);
+    this->MyCSBI.ColorTable[CGM::Color::Magenta]      = RGB(255, 0, 255);
+    this->MyCSBI.ColorTable[CGM::Color::Indigo]       = RGB(75, 0, 130);
+    this->MyCSBI.ColorTable[CGM::Color::Brown]        = RGB(160, 82, 45);
+    this->MyCSBI.ColorTable[CGM::Color::Bisque]       = RGB(255, 228, 196);
+    this->MyCSBI.ColorTable[CGM::Color::Yellow]       = RGB(255, 255, 0);
+    this->MyCSBI.ColorTable[CGM::Color::Orange]       = RGB(255, 165, 0);
 
     SetConsoleScreenBufferInfoEx(this->MyOutput, &this->MyCSBI);
-
+    SetConsoleMode(this->MyInput, ENABLE_EXTENDED_FLAGS | ENABLE_MOUSE_INPUT);
 }
 
 CGM::Canvas2D::~Canvas2D() {

@@ -12,6 +12,34 @@ namespace CGM {
 	template<typename T>
 	class Entity2D;
 
+	struct Color {
+		//Disable making an instance of this class
+		Color() = delete;
+
+		static const uint8_t Black = 0;
+
+		static const uint8_t Gray = 1;
+		static const uint8_t White = 2;
+
+		static const uint8_t Red = 3;
+		static const uint8_t DarkRed = 4;
+
+		static const uint8_t Cyan = 5;
+		static const uint8_t Blue = 6;
+		static const uint8_t DarkBlue = 7;
+
+		static const uint8_t Green = 8;
+		static const uint8_t DarkGreen = 9;
+
+		static const uint8_t Magenta = 10;
+		static const uint8_t Indigo = 11;
+
+		static const uint8_t Brown = 12;
+		static const uint8_t Bisque = 13;
+		static const uint8_t Yellow = 14;
+		static const uint8_t Orange = 15;
+	};
+
 	class Canvas2D {
 	public:
 
@@ -70,36 +98,6 @@ namespace CGM {
 		int index_of(CGM::Vec2i V) const;
 		int index_of(int x, int y) const;
 
-	public:
-
-		struct Color {
-			//Disable making an instance of this class
-			Color() = delete;
-
-			static const uint8_t Black = 0;
-
-			static const uint8_t Gray = 1;
-			static const uint8_t White = 2;
-
-			static const uint8_t Red = 3;
-			static const uint8_t DarkRed = 4;
-
-			static const uint8_t Cyan = 5;
-			static const uint8_t Blue = 6;
-			static const uint8_t DarkBlue = 7;
-
-			static const uint8_t Green = 8;
-			static const uint8_t DarkGreen = 9;
-
-			static const uint8_t Magenta = 10;
-			static const uint8_t Indigo = 11;
-
-			static const uint8_t Brown = 12;
-			static const uint8_t Bisque = 13;
-			static const uint8_t Yellow = 14;
-			static const uint8_t Orange = 15;
-		};
-
 	};
 
 	template<typename T>
@@ -113,6 +111,8 @@ namespace CGM {
 
 		void SetPosition(T x, T y);
 		void SetPosition(CGM::Vector2D<T> Pos);
+
+		void SetRegion(CGM::Region2D<T> Reg);
 
 		void MoveEntity(T x, T y);
 		void MoveEntity(CGM::Vector2D<T> Vec);
@@ -145,8 +145,8 @@ namespace CGM {
 		uint32_t MyID = 0;
 	};
 	
-	typedef Entity2D<int> Ent2i;
-	typedef Entity2D<double> Ent2d;
+	typedef Entity2D<int> Ent2i_util;
+	typedef Entity2D<double> Ent2d_util;
 
 	void AppendMessageToCanvas(CGM::Canvas2D* Can, const char* Message, uint8_t Color, int x, int y);
 	void AppendMessageToCanvas(CGM::Canvas2D* Can, const char* Message, uint8_t Color, CGM::Vec2i P);
@@ -191,6 +191,12 @@ namespace CGM {
 		//this->MyModifiedStatus = true;
 		this->MyLastRegion = this->MyRegion;
 		this->MyRegion.Position = Pos;
+	}
+
+	template<typename T>
+	inline void Entity2D<T>::SetRegion(CGM::Region2D<T> Reg) {
+		this->SetPosition(Reg.Position);
+		this->SetSize(Reg.Size);
 	}
 
 	template<typename T>

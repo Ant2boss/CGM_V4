@@ -27,6 +27,9 @@
     <ClCompile Include="CGM_TextBox2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CGM_Button2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGM_Vector2D.h">

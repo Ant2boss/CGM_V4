@@ -12,30 +12,22 @@ using namespace std;
 int main() {
 
 	CGM::Canvas2D MyCan(128, 48);
-	CGM::Butt2_Rect MyButton;
+	
+	CGM::Button MyButton(CGM::Color::Red, CGM::Color::DarkRed, CGM::Vec2i(10, 5), CGM::Vec2i(32, 8));
 
-	MyButton.SetPosition(10, 5);
-	MyButton.SetSize(31, 11);
-
-	MyButton.SetColorHovered(CGM::Canvas2D::Color::Blue);
-	MyButton.SetColorNotHovered(CGM::Canvas2D::Color::DarkBlue);
-
-	//MyButton.SetTextFormatMode_TextBreak(false);
-
-	MyButton.AddTextToButton("Hello world! ");
-	MyButton.AddTextToButton("And now I add even more text to see wether the stuff I added actually works!");
+	MyButton << "I am some cool text!" << "And I even work underwater!";
 
 	while (1) {
-		
 		MyCan.Clear();
 
 		if (MyButton.is_left_clicked())
+			MyButton.SetSize(40, 20);
+		if (MyButton.is_right_clicked())
 			break;
 
 		MyCan.Append(&MyButton);
 
 		MyCan.Draw();
-
 	}
 
 	return 0;

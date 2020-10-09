@@ -2,22 +2,6 @@
 
 #include <cmath>
 
-void CGM::BaseShape::SetColor(uint8_t Color) {
-    this->MyColor = Color;
-}
-
-void CGM::BaseShape::SetFillMode(bool Mode) {
-    this->MyFillMode = Mode;
-}
-
-uint8_t CGM::BaseShape::GetColor() const {
-    return this->MyColor;
-}
-
-bool CGM::BaseShape::GetFillMode() const {
-    return this->MyFillMode;
-}
-
 CGM::RectangleShape::RectangleShape(uint8_t Color) {
     this->SetColor(Color);
 }
@@ -100,27 +84,3 @@ void CGM::ElipseShape::AppendToCanvas(CGM::Canvas2D* Can) {
     }
 }
 
-void CGM::SaveShapeToFile(std::ofstream& out_file, const CGM::BaseShape* Shape) {
-    bool tFill = Shape->GetFillMode();
-    uint8_t tCol = Shape->GetColor();
-    CGM::Reg2i tReg = Shape->GetRegion();
-
-    out_file.write((char*)&tFill, sizeof(bool));
-    out_file.write((char*)&tCol, sizeof(uint8_t));
-    out_file.write((char*)&tReg, sizeof(CGM::Reg2i));
-}
-
-void CGM::LoadShapeFromFile(std::ifstream& in_file, CGM::BaseShape* Shape) {
-    bool tFill;
-    uint8_t tCol;
-    CGM::Reg2i tReg;
-
-    in_file.read((char*)&tFill, sizeof(bool));
-    in_file.read((char*)&tCol, sizeof(uint8_t));
-    in_file.read((char*)&tReg, sizeof(CGM::Reg2i));
-
-    Shape->SetFillMode(tFill);
-    Shape->SetColor(tCol);
-    Shape->SetPosition(tReg.Position);
-    Shape->SetSize(tReg.Size);
-}

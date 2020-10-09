@@ -10,4 +10,4 @@ Documentation coming soon...
 
 **C++ / Windows.h / Console**
 
-V - 0.1.1 / 08102020
+V - 0.1.2 / 09102020

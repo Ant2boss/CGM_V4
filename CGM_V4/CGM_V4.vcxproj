@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CGM_Button2D.cpp" />
     <ClCompile Include="CGM_Canvas2D.cpp" />
     <ClCompile Include="CGM_Shapes2D.cpp" />
     <ClCompile Include="CGM_TextBox2D.cpp" />

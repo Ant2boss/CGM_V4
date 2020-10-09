@@ -8,7 +8,7 @@
 
 namespace CGM {
 
-	class TextBox : public CGM::Ent2i {
+	class TextBox : public CGM::Ent2i_util {
 	public:
 		TextBox() {}
 		TextBox(CGM::Vec2i Size);
@@ -40,11 +40,11 @@ namespace CGM {
 	private:
 		struct text_element {
 			char Letter = ' ';
-			uint8_t Color = CGM::Canvas2D::Color::Black;
+			uint8_t Color = CGM::Color::Black;
 		};
 
 		std::vector<text_element> MyTextBuffer;
-		uint8_t MyCurrentColor = CGM::Canvas2D::Color::White;
+		uint8_t MyCurrentColor = CGM::Color::White;
 
 		std::string convert_TextBuffer_to_string() const;
 
