@@ -86,6 +86,10 @@ uint8_t CGM::Button::GetNotSelectedColor() const {
     return this->MyOffColor;
 }
 
+void CGM::Button::ClearText() {
+    this->MyText.ClearBuffer();
+}
+
 void CGM::Button::AppendToCanvas(CGM::Canvas2D* Can) {
     if (this->is_hovered())
         this->MyRect.SetColor(this->GetSelectedColor());

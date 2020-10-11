@@ -43,6 +43,10 @@ void CGM::TextBox::AppendToCanvas(CGM::Canvas2D* Can) {
 	CGM::Vec2i Offset = this->GetPosition();
 	std::string OutputText = this->convert_TextBuffer_to_string();
 
+	if (this->GetSize() == CGM::Vec2i(0, 0)) {
+		this->SetSize(Can->GetSize());
+	}
+
 	if (this->CenterTDMode) {
 		int char_count = 0;	//Number of characters
 		int len_count = 0;	//Lenght of a single line up to a point
@@ -188,7 +192,8 @@ void CGM::SaveTextBoxToFile(std::ofstream& out_file, const TextBox* text_to_save
 
 	uint32_t el_count = text_to_save->GetBufferSize();
 	out_file.write((char*)&el_count, sizeof(uint32_t));
-	out_file.write((char*)&text_to_save->MyTextBuffer[0], el_count * sizeof(CGM::TextBox::text_element));
+	if(el_count != 0)
+		out_file.write((char*)&text_to_save->MyTextBuffer[0], el_count * sizeof(CGM::TextBox::text_element));
 }
 
 void CGM::LoadTextBoxFromFile(std::ifstream& in_file, TextBox* text_to_load) {
@@ -199,13 +204,15 @@ void CGM::LoadTextBoxFromFile(std::ifstream& in_file, TextBox* text_to_load) {
 
 	uint32_t el_count;
 	in_file.read((char*)&el_count, sizeof(uint32_t));
-	CGM::TextBox::text_element* tel_array = new CGM::TextBox::text_element[el_count];
+	if (el_count != 0) {
+		CGM::TextBox::text_element* tel_array = new CGM::TextBox::text_element[el_count];
 
-	in_file.read((char*)tel_array, sizeof(CGM::TextBox::text_element) * el_count);
+		in_file.read((char*)tel_array, sizeof(CGM::TextBox::text_element) * el_count);
 
-	text_to_load->MyTextBuffer.resize(el_count);
-	memcpy(&text_to_load->MyTextBuffer[0], tel_array, sizeof(CGM::TextBox::text_element) * el_count);
+		text_to_load->MyTextBuffer.resize(el_count);
+		memcpy(&text_to_load->MyTextBuffer[0], tel_array, sizeof(CGM::TextBox::text_element) * el_count);
 
-	delete[] tel_array;
+		delete[] tel_array;
+	}
 
 }

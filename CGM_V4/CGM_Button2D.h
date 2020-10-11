@@ -51,6 +51,8 @@ namespace CGM {
 		template<typename T>
 		friend Button& operator<<(Button& butt, T message_to_add);
 
+		void ClearText();
+
 		void AppendToCanvas(CGM::Canvas2D* Can);
 
 		friend void SaveButtonToFile(std::ofstream&, const CGM::Button*);

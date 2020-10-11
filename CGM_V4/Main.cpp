@@ -6,6 +6,7 @@
 #include "CGM_Shapes2D.h"
 #include "CGM_TextBox2D.h"
 #include "CGM_Button2D.h"
+#include "CGM_ButtonMatrix2D.h"
 
 using namespace std;
 
@@ -13,19 +14,37 @@ int main() {
 
 	CGM::Canvas2D MyCan(128, 48);
 	
-	CGM::Button MyButton(CGM::Color::Red, CGM::Color::DarkRed, CGM::Vec2i(10, 5), CGM::Vec2i(32, 8));
+	CGM::ButtonMatrix MyMat;
 
-	MyButton << "I am some cool text!" << "And I even work underwater!";
+	MyMat.AddColumn(3);
+	MyMat.AddRow(3);
+	MyMat.SetMatrixSelectedColor(CGM::Color::Blue);
+	MyMat.SetMatrixNotSelectedColor(CGM::Color::DarkBlue);
+
+	MyMat.SetPosition(3, 3);
+	MyMat.SetMatrixElementSize(15, 5);
+
+	MyMat.SetElementColor(CGM::Color::Brown, 5);
+	MyMat.SetElementSelectedColor(CGM::Color::Bisque, 5);
+
+	MyMat[0] << "I am the first";
+	MyMat[0].SetFontColor(CGM::Color::Red);
+	MyMat[0] << " of many!";
+
+	MyMat[1] << "I am one of the few!";
+	MyMat[2] << "I am the third among the crowd";
+	MyMat[3] << "I am the final one of many!";
+
+	MyMat.GetElement(1, 3) << "I am a corner :)";
 
 	while (1) {
 		MyCan.Clear();
 
-		if (MyButton.is_left_clicked())
-			MyButton.SetSize(40, 20);
-		if (MyButton.is_right_clicked())
-			break;
+		MyCan.Append(&MyMat);
 
-		MyCan.Append(&MyButton);
+		if (MyMat.is_left_clicked()) {
+			break;
+		}
 
 		MyCan.Draw();
 	}

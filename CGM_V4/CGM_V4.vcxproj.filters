@@ -30,6 +30,9 @@
     <ClCompile Include="CGM_Button2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CGM_ButtonMatrix2D.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CGM_Vector2D.h">
@@ -51,6 +54,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CGM_Button2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CGM_ButtonMatrix2D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
